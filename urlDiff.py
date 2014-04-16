@@ -72,6 +72,7 @@ if base_path != compare_path:
 if base_frag != compare_frag:
     print 'fragment %s %s' % (base_frag, compare_frag);
 
+
 for key, value in D.iteritems():
     base, comp = value
     if base != comp:
