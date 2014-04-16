@@ -43,7 +43,7 @@ D = dict()
 
 def store(params, isBase):
     params = urlparse.parse_qs(params)
-    print params
+    #print params
 
     for k  in params:
 	#print kv
