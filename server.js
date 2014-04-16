@@ -16,8 +16,10 @@ server.get(/\/js\/?.*/, restify.serveStatic({
 server.get('/index/', api_getLanding);
 server.post('/index/', data_post);
 
-server.listen(8080, function() {
-    console.log('%s listening at %s', server.name, server.url);
+var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+server.listen( port, ipaddress, function() {
+    console.log((new Date()) + ' Server is listening on at '+ ipaddress + ":" + port);
 });
 
 function api_getLanding(req, res, next) {
