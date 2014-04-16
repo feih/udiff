@@ -2,6 +2,10 @@ var restify = require('restify');
 var http = require('http');
 var fs = require('fs');
 
+// redirect stdout / stderr
+process.__defineGetter__('stdout', function() { return fs.createWriteStream('./access.log', {flags:'a'}) })
+process.__defineGetter__('stderr', function() { return fs.createWriteStream('./error.log', {flags:'a'}) })
+
 var server = restify.createServer();
 
 server.use(restify.queryParser()); // to support hotel?location=...
