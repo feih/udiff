@@ -1,0 +1,131 @@
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h3>URL Diff tool</h3>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script>
+
+  function ajaxFunction()
+  {
+    var xmlhttp;
+
+    if (window.XMLHttpRequest)
+      {
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+      }
+    else if (window.ActiveXObject)
+      {
+      // code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    else
+      {
+      alert("Your browser does not support XMLHTTP!");
+      }
+
+    xmlhttp.onreadystatechange = function()
+    {
+      //alert("state: " + xmlhttp.readyState);
+      if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+        var str = '<table class="table table-hover">';
+        str += '<tr><th>Parameter</th><th>URL A</th><th>URL B</th></tr>';
+        alert("response: " + xmlhttp.responseText);
+        var diffs = xmlhttp.responseText.split("\n");
+        var i = 0;
+        while (i < diffs.length) {
+          var res = diffs[i].split(" ");
+          if (res[0] != "") {
+            str += '<tr><td>'+ res[0] + '</td><td>' + res[1] + '</td><td>' + res[2] + '</td></tr>';
+          }
+          i++;
+        }
+        str += '</table>';
+        document.getElementById("tableHolder").innerHTML=str;
+      }
+    }
+
+    //alert("sending ajax..");
+
+    //alert("urla: " + document.getElementById('urla').value );
+
+    xmlhttp.open("POST", "index", false);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send('urla=' + encodeURIComponent(document.getElementById('urla').value) + '&urlb=' + encodeURIComponent(document.getElementById('urlb').value));
+  }
+
+/*
+  function jqueryAjax() {
+    var ajaxCall = $.ajax({
+    url: "abc",
+    async: false,
+    beforeSend: function( xhr ) {
+      alert("setting form encoding");
+      xhr.overrideMimeType( "application/x-www-form-urlencoded" );
+    }
+  })
+  .done(function( data ) {
+    alert("data:", data);
+  })
+  .fail(function( jqXHR ) {
+    alert("error: " + jqXHR.readyState);
+    alert("error: " + jqXHR.status);
+    alert("error: " + jqXHR.statusText);
+  })
+  ;
+
+
+  }
+  */
+</script>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-5">
+      <textarea class="form-control" rows="5" placeholder="URL A" id="urla"></textarea>
+    </div>
+
+    <div class="col-md-5">
+      <textarea class="form-control" rows="5" placeholder="URL B" id="urlb"></textarea>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <div></div>
+
+  <ol class="breadcrumb">
+  <div align="center">
+    
+      <button type="submit" class="btn btn-primary" onclick="ajaxFunction()">Diff</button>
+  </div>
+  </ol>
+
+  <div id="tableHolder"></div>  
+
+</body>
+
+
+</html>

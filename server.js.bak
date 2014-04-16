@@ -1,0 +1,18 @@
+var http = require("http");
+var fs = require("fs");
+
+var mainPage = 'Hello world';
+
+fs.readFile('./diff.html', function (err, html) {
+    if (err) {
+        throw err; 
+    }
+    mainPage = html;
+});
+
+http.createServer(function(request, response) {
+  response.writeHead(200, {"Content-Type": "text/html"});
+
+  response.write(mainPage);
+  response.end();
+}).listen(8888);
