@@ -19,7 +19,16 @@
   <body>
     <h3>&nbsp;URL Diff tool <span class="label label-default">Beta</span></h3>
 
-    <h5 style="margin-top:20px; margin-bottom:50px">&nbsp;&nbsp;Simply copy paste two URLs here and let the tool to do the rest</h5>
+    <h5 style="margin-top:20px; margin-bottom:20px">&nbsp;&nbsp;Simply copy paste two URLs here and let the tool to do the rest</h5>
+    <h5 style="margin-top:3px; margin-bottom:3px">&nbsp;&nbsp;A URL should ideally comform to this definition:</h5>
+    <h5 style="margin-top:3px; margin-bottom:20px">&nbsp;&nbsp;
+        <span class="label label-default">scheme://</span>
+        <span class="label label-primary">host</span>
+        <span class="label label-success">:port</span>
+        <span class="label label-info">path</span>
+        <span class="label label-warning">parameters</span>
+        <span class="label label-danger">#fragment</span>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -78,9 +87,21 @@
 
     //alert("urla: " + document.getElementById('urla').value );
 
-    xmlhttp.open("POST", "index", false);
+    xmlhttp.open("POST", "index", true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send('urla=' + encodeURIComponent(document.getElementById('urla').value) + '&urlb=' + encodeURIComponent(document.getElementById('urlb').value));
+
+    function ajaxTimeout(){
+      xmlhttp.abort();
+      //alert('timeout!');
+        if (document.getElementById("tableHolder").innerHTML=="") {
+            var emptyStr = '<div class="alert alert-danger" align="center">this is embarassing but the server doesn\'t seem to respond..</div>';
+            document.getElementById("tableHolder").innerHTML=emptyStr;
+        }
+    }
+
+    var xmlHttpTimeout=setTimeout(ajaxTimeout, 2000);
+    //alert("set timeout");
   }
 
 /*
@@ -108,7 +129,7 @@
   */
 </script>
 
-  <div class="row">
+  <div class="row" style="margin-top:30px">
     <div class="col-md-1"></div>
 
     <div class="col-md-5">

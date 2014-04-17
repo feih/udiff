@@ -66,20 +66,27 @@ store(comp_params, 0)
 
 #print D
 
+def printer(param, base, comp):
+    if base==None:
+        base = ""
+    if comp==None:
+        comp = ""
+    print '%s %s %s' % (param, base, comp)
+
 if base_schema != compare_schema:
-    print 'scheme %s %s' % (base_schema, compare_schema);
+    printer("scheme", base_schema, compare_schema);
 if base_host != compare_host:
-    print 'host %s %s' % (base_host, compare_host);
+    printer("host", base_host, compare_host);
 if base_port != compare_port:
-    print 'port %s %s' % (base_port, compare_port);
+    printer("port", base_port, compare_port);
 if base_path != compare_path:
-    print 'path %s %s' % (base_path, compare_path);
+    printer("path", base_path, compare_path);
 if base_frag != compare_frag:
-    print 'fragment %s %s' % (base_frag, compare_frag);
+    printer("fragment", base_frag, compare_frag);
 
 
 for key, value in D.iteritems():
     base, comp = value
     if base != comp:
 	print '%s %s %s' % (key, base[0], comp[0])
-print
+print # to test ajax timeout, comment this out
