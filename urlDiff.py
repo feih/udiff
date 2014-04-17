@@ -88,5 +88,11 @@ if base_frag != compare_frag:
 for key, value in D.iteritems():
     base, comp = value
     if base != comp:
-	print '%s %s %s' % (key, base[0], comp[0])
+        base_ = "";
+        comp_ = "";
+        if len(base) != 0:
+            base_ = base[0]
+        if len(comp) != 0:
+            comp_ = comp[0]
+	print '%s %s %s' % (key, base_, comp_)
 print # to test ajax timeout, comment this out
