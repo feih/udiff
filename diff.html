@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>Find difference between two URLs</title>
 
     <!-- Bootstrap -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
@@ -52,18 +52,23 @@
       {
         var str = '<table class="table table-hover">';
         str += '<tr><th>Parameter</th><th>URL A</th><th>URL B</th></tr>';
-        //alert("response: " + xmlhttp.responseText);
-        var diffs = xmlhttp.responseText.split("\n");
-        var i = 0;
-        while (i < diffs.length) {
-          var res = diffs[i].split(" ");
-          if (res[0] != "") {
-            str += '<tr><td>'+ res[0] + '</td><td>' + res[1] + '</td><td>' + res[2] + '</td></tr>';
-          }
-          i++;
+        //alert("response:" + xmlhttp.responseText + "AA");
+        if (xmlhttp.responseText == "\n")  {
+            var emptyStr = '<div class="alert alert-success" align="center">hmm..they are the same</div>';
+            document.getElementById("tableHolder").innerHTML=emptyStr;
+        } else {
+            var diffs = xmlhttp.responseText.split("\n");
+            var i = 0;
+            while (i < diffs.length) {
+              var res = diffs[i].split(" ");
+              if (res[0] != "") {
+                str += '<tr><td>'+ res[0] + '</td><td>' + res[1] + '</td><td>' + res[2] + '</td></tr>';
+              }
+              i++;
+            }
+            str += '</table>';
+            document.getElementById("tableHolder").innerHTML=str;
         }
-        str += '</table>';
-        document.getElementById("tableHolder").innerHTML=str;
       }
     }
 
@@ -118,12 +123,11 @@
 
   <ol class="breadcrumb">
   <div align="center">
-    
       <button type="submit" class="btn btn-primary" onclick="ajaxFunction()">Diff</button>
   </div>
   </ol>
 
-  <div id="tableHolder"></div>  
+  <div id="tableHolder"></div>
 
 </body>
 

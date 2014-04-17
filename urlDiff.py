@@ -20,6 +20,9 @@ compare  = sys.argv[2]
 b = urlparse.urlparse(baseline);
 c = urlparse.urlparse(compare);
 
+#schema
+base_schema = b.scheme
+compare_schema = c.scheme
 #hostname
 base_host = b.hostname
 compare_host = c.hostname
@@ -32,9 +35,6 @@ compare_path = c.path;
 #fragment
 base_frag = b.fragment;
 compare_frag = c.fragment;
-
-baseline = baseline.split('?')[1]
-compare = compare.split('?')[1]
 
 base_params = b.query;
 comp_params = c.query;
@@ -66,6 +66,8 @@ store(comp_params, 0)
 
 #print D
 
+if base_schema != compare_schema:
+    print 'scheme %s %s' % (base_schema, compare_schema);
 if base_host != compare_host:
     print 'host %s %s' % (base_host, compare_host);
 if base_port != compare_port:
@@ -80,3 +82,4 @@ for key, value in D.iteritems():
     base, comp = value
     if base != comp:
 	print '%s %s %s' % (key, base[0], comp[0])
+print

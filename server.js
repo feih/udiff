@@ -47,13 +47,13 @@ function data_post(req, res, next) {
     var spawn = require('child_process').spawn,
     grep  = spawn('./urlDiff.py', [req.params.urla, req.params.urlb]);
 
-	grep.stdout.on('data', function (data) {
-	  	console.log('ajax sent: ' + data);
-	  	res.writeHead(200, {"Content-Type": "text/plain"});
-	  	res.write(data);
-	    res.end();
-	});
+    grep.stdout.on('data', function (data) {
+            console.log('ajax sent: ' + data);
+            res.writeHead(200, {"Content-Type": "text/plain"});
+            res.write(data);
+        res.end();
+    });
 
-	grep.stdin.end()
+    grep.stdin.end()
 }
 
