@@ -66,12 +66,16 @@ store(comp_params, 0)
 
 #print D
 
+import json
+data = []
+
 def printer(param, base, comp):
     if base==None:
         base = ""
     if comp==None:
         comp = ""
-    print '%s %s %s' % (param, base, comp)
+    #print '%s %s %s' % (param, base, comp)
+    data.append({"key" : param, "base" : base, "comp" : comp});
 
 if base_schema != compare_schema:
     printer("scheme", base_schema, compare_schema);
@@ -91,8 +95,13 @@ for key, value in D.iteritems():
         base_ = "";
         comp_ = "";
         if len(base) != 0:
-            base_ = base[0]
+            base_ = ' '.join(base)
         if len(comp) != 0:
-            comp_ = comp[0]
-	print '%s %s %s' % (key, base_, comp_)
-print # to test ajax timeout, comment this out
+            comp_ = ' '.join(comp)
+	#print '%s %s %s' % (key, base_, comp_)
+        data.append( {'key' : key, "base" : base_, "comp" : comp_ })
+#print # to test ajax timeout, comment this out
+print json.dumps(data)
+
+#TOOD
+# 1. http://en.wikibooks.org/wiki/Statistical_Analysis:_an_Introduction_using_R?a=d&a=c

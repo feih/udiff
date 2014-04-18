@@ -15,6 +15,17 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-50148727-1', 'urldiff.com');
+    ga('send', 'pageview');
+
+    </script>
   </head>
   <body>
     <h3>&nbsp;URL Diff tool <span style="font-size: 10pt" class="label label-default">Beta</span></h3>
@@ -63,19 +74,19 @@
       {
         var str = '<table class="table table-hover">';
         str += '<tr><th>Parameter</th><th>URL A</th><th>URL B</th></tr>';
+
         //alert("response:" + xmlhttp.responseText + "AA");
-        if (xmlhttp.responseText == "\n")  {
+
+        // json array
+        var ja = JSON.parse(xmlhttp.responseText);
+
+        if (ja.length == 0)  {
             var emptyStr = '<div class="alert alert-success" align="center">hmm..they are the same</div>';
             document.getElementById("tableHolder").innerHTML=emptyStr;
         } else {
-            var diffs = xmlhttp.responseText.split("\n");
-            var i = 0;
-            while (i < diffs.length) {
-              var res = diffs[i].split(" ");
-              if (res[0] != "") {
-                str += '<tr><td>'+ res[0] + '</td><td>' + res[1] + '</td><td>' + res[2] + '</td></tr>';
-              }
-              i++;
+            //alert(ja + "-" + ja.length);
+            for (var i = 0; i < ja.length; i++) {
+                str += '<tr><td>'+ ja[i].key + '</td><td>' + ja[i].base + '</td><td>' + ja[i].comp + '</td></tr>';
             }
             str += '</table>';
             document.getElementById("tableHolder").innerHTML=str;
@@ -151,12 +162,13 @@
   </ol>
 
   <div id="tableHolder"></div>
-
+<!--
   <div align="right" style="position:absolute;bottom:0;width:100%;height:60px;">
       <div id="clustrmaps-widget"></div>
       <script type="text/javascript">var _clustrmaps = {'url' : 'urldiff.com', 'user' : 1140240, 'server' : '2', 'id' : 'clustrmaps-widget', 'version' : 1, 'date' : '2014-04-17', 'lang' : 'en', 'corners' : 'square' };(function (){ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'http://www2.clustrmaps.com/counter/map.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);})();</script>
       <noscript><a href="http://www2.clustrmaps.com/user/e8d116610"><img src="http://www2.clustrmaps.com/stats/maps-no_clusters/urldiff.com-thumb.jpg" alt="Locations of visitors to this page" /></a></noscript>
   </div>
+  -->
 
 </body>
 

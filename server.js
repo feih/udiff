@@ -49,7 +49,7 @@ function data_post(req, res, next) {
 
     grep.stdout.on('data', function (data) {
             console.log('ajax sent: ' + data);
-            res.writeHead(200, {"Content-Type": "text/plain"});
+            res.writeHead(200, {"Content-Type": "application/json"});
             res.write(data);
         res.end();
     });
