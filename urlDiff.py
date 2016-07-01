@@ -88,7 +88,6 @@ if base_path != compare_path:
 if base_frag != compare_frag:
     printer("fragment", base_frag, compare_frag);
 
-
 for key, value in D.iteritems():
     base, comp = value
     if base != comp:
@@ -105,3 +104,4 @@ print json.dumps(data)
 
 #TOOD
 # 1. http://en.wikibooks.org/wiki/Statistical_Analysis:_an_Introduction_using_R?a=d&a=c
+# 2. http://urldiff.com/?path

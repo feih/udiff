@@ -37,8 +37,9 @@ function api_getLanding(req, res, next) {
 
 function data_post(req, res, next) {
 	// simply return the landing page	
-	console.log("in data post");
-	console.log("urla: " + req.params.urla);
+	console.log("-- in data post --");
+	console.log("url A: " + req.params.urla);
+	console.log("url B: " + req.params.urlb);
 	/* debug
     res.writeHeader(200, {"Content-Type": "text/json"}); 
     var response = { "response" : req.params.urla};
